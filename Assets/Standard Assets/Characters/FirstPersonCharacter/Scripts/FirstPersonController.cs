@@ -12,6 +12,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 	{
 		[SerializeField] private bool m_IsWalking;
 		[SerializeField] private bool m_CanJump;
+		[SerializeField] public bool m_CanMove;
 		[SerializeField] private float m_WalkSpeed;
 		[SerializeField] private float m_RunSpeed;
 		[SerializeField] [Range(0f, 1f)] private float m_RunstepLenghten;
@@ -47,13 +48,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		private void Start()
 		{
 			m_CharacterController = GetComponent<CharacterController>();
-			m_Camera = Camera.main;
+			m_Camera = GetComponentInChildren<Camera>();
 			m_OriginalCameraPosition = m_Camera.transform.localPosition;
 			m_FovKick.Setup(m_Camera);
 			m_HeadBob.Setup(m_Camera, m_StepInterval);
 			m_StepCycle = 0f;
 			m_NextStep = m_StepCycle/2f;
 			m_Jumping = false;
+			m_CanMove = true;
 			m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
 		}
@@ -62,6 +64,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		// Update is called once per frame
 		private void Update()
 		{
+			if (!m_CanMove)
+				return;
+
 			RotateView();
 			if (m_CanJump)
 			{
@@ -98,6 +103,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		private void FixedUpdate()
 		{
+			if (!m_CanMove)
+				return;
+
 			float speed;
 			GetInput(out speed);
 			// always move along the camera forward as it is the direction that it being aimed at

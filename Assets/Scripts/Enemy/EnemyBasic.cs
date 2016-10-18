@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
+using System;
 
 public class EnemyBasic : MonoBehaviour 
 {
@@ -15,28 +16,33 @@ public class EnemyBasic : MonoBehaviour
 	public AudioClip HitSound;
 
 	public int HitPoints;
-
-	GameController controller;
-
-	void Awake()
+	
+	void Start()
 	{
 		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 		_player = Player.GetComponent<Walk>();
-		controller = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-	}
-
-	void Start()
-	{
 		HitPoints = 5;
 		Audio = GetComponent<AudioSource>();
 		agent = GetComponent<NavMeshAgent>();
+
+		EventManager.StartListening(EventManager.Events.GameRestart, Kill);
 	}
 
 	void Update()
 	{
-		if (!Happy || _player.Life > 0)
-			agent.destination = Player.transform.position; 
+		if (_player != null)
+		{
+			if (!_player.Alive)
+				agent.Stop();
 
+			if (!Happy || _player.Alive)
+				agent.destination = Player.transform.position;
+		}
+		else
+		{
+			Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+			_player = Player.GetComponent<Walk>();
+		}
 	}
 
 	void OnCollisionEnter(Collision collision)
@@ -51,18 +57,20 @@ public class EnemyBasic : MonoBehaviour
 			else
 			{
 				Happy = true;
-				controller.TotalEnemies--;
-				var childRenderers = GetComponentsInChildren<MeshRenderer>();
-				foreach (var item in childRenderers)
-					item.material.color = Color.blue;
-				
 				Audio.PlayOneShot(KilledSound);
 				agent.destination = collision.transform.position;
-				Instantiate(GoldenVinyl, transform.position, GoldenVinyl.rotation);
+				var vinylPosition = new Vector3(transform.position.x, 0.8f, transform.position.z);
+				Instantiate(GoldenVinyl, vinylPosition, GoldenVinyl.rotation);
 				Destroy(gameObject);
 
-				controller.Respawn();				
+				EventManager.TriggerEvent(EventManager.Events.SpawnVinylPlayer);
 			}
 		}
+	}
+
+
+	private void Kill()
+	{
+		Destroy(gameObject);
 	}
 }

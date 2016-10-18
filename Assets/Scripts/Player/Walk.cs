@@ -2,78 +2,68 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine.UI;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class Walk : MonoBehaviour {
 
 	CharacterController Controller;
+	FirstPersonController FirstPerson;
 	Camera Eyes;
-	Vector3 MoveDirection = Vector3.zero;
 	RaycastHit hit;
 	CursorLockMode lockMode;
 
 	Transform DirectionSphere;
-	bool Alive 
+	public bool Alive 
 	{ 
 		get { return Life > 0; }
 	}
 	public Transform vinyl;
-	public RectTransform BulletIndicator;
-	public RectTransform Hand;
-	public RectTransform LifeIndicator;
-	public Image HurtDisplay;
-	Text textComponent;
-	Text lifeComponent;
+	//public RectTransform Hand;
 
+	public AudioSource PickupAudioSource;
+	public AudioSource HurtAudioSource;
 	AudioSource Audio;
-	public AudioClip PickupClip;
-	public AudioClip HurtClip;
 	public AudioClip DeadClip;
 
 	public float Life;
-	public float Speed;
-	public float MouseSpeed;
-	public int VinylBullets = 3;
+	public int VinylBullets;
 
-	float _hurtDelay = 0;
+	float hurtColorFade = 0;
 
 	// Use this for initialization
 	void Start () {
-		Controller = GetComponent<CharacterController>() as CharacterController;
+		Controller = GetComponent<CharacterController>();
+		FirstPerson = GetComponent<FirstPersonController>();
 		Eyes = GetComponentInChildren<Camera>() as Camera;
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 
 		var list = GetComponentsInChildren<Transform>();
 		DirectionSphere = list.Single(t => t.tag.Equals("Debug"));
-
-		textComponent = BulletIndicator.GetComponent<Text>();
-		lifeComponent = LifeIndicator.GetComponent<Text>();
-
+		
 		Audio = GetComponent<AudioSource>();
+
+		EventManager.StartListening(EventManager.Events.PlayerDied, Died);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKey("escape"))
-			Exit();				
-
-		lifeComponent.text = string.Format("x{0}", Life);
 		if (Life <= 0)
+		{
+			FirstPerson.m_CanMove = false;
 			return;
+		}
 
-		HurtDisplay.color = new Color(1, 0, 0, _hurtDelay / 5);
 		// Update Vinyl counter
-		textComponent.text = string.Format("x{0}", VinylBullets);
-
 		if (Input.GetMouseButtonDown(0) && VinylBullets > 0)
 		{
 			var instance = (Transform)Instantiate(vinyl, DirectionSphere.position, transform.rotation);
-			var rigidbody = instance.GetComponent<Rigidbody>();
-			var force = Eyes.transform.forward * 200 * Speed;
-			rigidbody.AddForce(force);
+			var vinylRigidbody = instance.GetComponent<Rigidbody>();
+			var force = Eyes.transform.forward * 500;
+			vinylRigidbody.AddForce(force);
 			VinylBullets--;
 		}
-		_hurtDelay -= Time.deltaTime;
+		hurtColorFade -= Time.deltaTime;
 	}
 
 	void OnTriggerEnter(Collider collider)
@@ -83,7 +73,9 @@ public class Walk : MonoBehaviour {
 			var pickable = collider.GetComponent<Pickable>();
 			VinylBullets += pickable.Quantity;
 
-			Audio.PlayOneShot(PickupClip);
+			var source = Instantiate(PickupAudioSource);
+			source.Play();
+			Destroy(source, 2);
 			Destroy(collider.gameObject);
 		}
 	}
@@ -98,31 +90,25 @@ public class Walk : MonoBehaviour {
 				Life--;
 				if (!Alive)
 				{
-					Die();
+					EventManager.TriggerEvent(EventManager.Events.PlayerDied);
 				}
 				else
 				{
-					if(_hurtDelay < 0)
-					{
-						Audio.PlayOneShot(HurtClip);
-						_hurtDelay = 1.5f;
-					}
+					var source = Instantiate(HurtAudioSource);
+					source.Play();
+					Destroy(source, 2);
+					EventManager.TriggerEvent(EventManager.Events.PlayerHurt);
 				}
 			}
 
 		}
 	}
 
-	private void Die()
+	private void Died()
 	{
 		Audio.PlayOneShot(DeadClip);
-		Destroy(Hand.gameObject);
 		Controller.Move(Vector3.down * 20);
-	}
-
-	void Exit()
-	{
+		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
-		Application.Quit();
 	}
 }

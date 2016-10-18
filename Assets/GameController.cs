@@ -8,37 +8,31 @@ public class GameController : MonoBehaviour {
 	public int TotalEnemies = 8;
 	Walk Player;
 	public Text ScoreText;
-	Text GameOverText;
-	int Score = 0;
 	public Transform EnemyTemplate;
 
 	// Use this for initialization
 	void Start () 
 	{
-		GameOverText = GetComponent<Text>();
+		//GameOverText = GetComponent<Text>();
 		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Walk>();
 		
 	}
 	
 	// Update is called once per frame
-	void Update () 
-	{
-		ScoreText.text = string.Format("Score: {0}", Score);
-		if(Player.Life <= 0)
-		{
-			GameOverText.color = Color.red;
-			GameOverText.text = "Game Over";
-		}
-	}
+	//void Update () 
+	//{
+	//	ScoreText.text = string.Format("Score: {0}", Score);
+		
+	//}
 
-	public void Respawn()
-	{
-		Score++;
-		var spawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
-		var spawnOne = spawnPoints.ElementAt(Random.Range(0, spawnPoints.Length));
-		var spawnTwo = spawnPoints.ElementAt(Random.Range(0, spawnPoints.Length));
+	//public void Respawn()
+	//{
+	//	Score++;
+	//	var spawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
+	//	var spawnOne = spawnPoints.ElementAt(Random.Range(0, spawnPoints.Length));
+	//	var spawnTwo = spawnPoints.ElementAt(Random.Range(0, spawnPoints.Length));
 
-		Instantiate(EnemyTemplate, spawnOne.transform.position, EnemyTemplate.transform.rotation);
-		Instantiate(EnemyTemplate, spawnTwo.transform.position, EnemyTemplate.transform.rotation);
-	}
+	//	Instantiate(EnemyTemplate, spawnOne.transform.position, EnemyTemplate.transform.rotation);
+	//	Instantiate(EnemyTemplate, spawnTwo.transform.position, EnemyTemplate.transform.rotation);
+	//}
 }
