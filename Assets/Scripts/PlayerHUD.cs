@@ -39,7 +39,7 @@ public class PlayerHUD : MonoBehaviour
 		LifeCounter.text = string.Format("x{0}", Player.Life);
 		HurtDisplay.color = new Color(1, 0, 0, hurtColorFade);
 		if (hurtColorFade > 0)
-			hurtColorFade -= 0.05f;
+			hurtColorFade -= Time.deltaTime;
 	}
 
 	void PlayerWasHit()

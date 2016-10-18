@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[ExecuteInEditMode]
 public class RespawnArea : MonoBehaviour
 {
 	BoxCollider box;
@@ -11,20 +10,6 @@ public class RespawnArea : MonoBehaviour
 	void Start()
 	{
 		box = GetComponent<BoxCollider>();
-	}
-	
-	void OnDrawGizmos()
-	{
-		if (IsAvailable)
-		{
-			Gizmos.color = new Color(Color.green.r, Color.green.g, Color.green.b, 0.5f);
-		}
-		else
-		{
-			Gizmos.color = new Color(Color.red.r, Color.red.g, Color.red.b, 0.5f);
-
-		}
-		Gizmos.DrawCube(transform.position, box.size);
 	}
 	
 	public Vector3 RandomPosition()

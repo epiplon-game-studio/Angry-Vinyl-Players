@@ -5,7 +5,11 @@ public class Pickable : MonoBehaviour {
 
 	public int Quantity;
 
-	// Update is called once per frame
+	void Start()
+	{
+		EventManager.StartListening(EventManager.Events.GameRestart, () => { Destroy(gameObject); });
+	}
+
 	void Update () {
 		transform.Rotate(0.6f, 0, 0);
 	}

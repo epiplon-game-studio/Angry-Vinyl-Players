@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Linq;
-using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
+using UnityStandardAssets.CrossPlatformInput;
+using System;
 
 public class Walk : MonoBehaviour {
 
-	CharacterController Controller;
 	FirstPersonController FirstPerson;
 	Camera Eyes;
 	bool GameRunning = true;
@@ -25,11 +24,9 @@ public class Walk : MonoBehaviour {
 	public float Life;
 	public int VinylBullets;
 
-	float hurtColorFade = 0;
 
 	// Use this for initialization
 	void Start () {
-		Controller = GetComponent<CharacterController>();
 		FirstPerson = GetComponent<FirstPersonController>();
 		Eyes = GetComponentInChildren<Camera>() as Camera;
 		var list = GetComponentsInChildren<Transform>();
@@ -54,15 +51,31 @@ public class Walk : MonoBehaviour {
 		}
 
 		// Update Vinyl counter
-		if (Input.GetMouseButtonDown(0) && VinylBullets > 0)
+		if (CrossPlatformInputManager.GetButtonDown("Fire1") && VinylBullets > 0)
 		{
-			var instance = (Transform)Instantiate(vinyl, DirectionSphere.position, transform.rotation);
-			var vinylRigidbody = instance.GetComponent<Rigidbody>();
-			var force = Eyes.transform.forward * 500;
-			vinylRigidbody.AddForce(force);
-			VinylBullets--;
+			Fire();
 		}
-		hurtColorFade -= Time.deltaTime;
+		else if (CrossPlatformInputManager.GetButtonDown("Fire2") && VinylBullets >= 3)
+		{
+			Burst();
+		}
+	}
+
+	void Fire()
+	{
+		var instance = (Transform)Instantiate(vinyl, DirectionSphere.position, transform.rotation);
+		var vinylRigidbody = instance.GetComponent<Rigidbody>();
+		var force = Eyes.transform.forward * 500;
+		vinylRigidbody.AddForce(force);
+		VinylBullets--;
+	}
+
+	void Burst()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			Fire();
+		}
 	}
 
 	void OnTriggerEnter(Collider collider)
@@ -106,7 +119,7 @@ public class Walk : MonoBehaviour {
 	private void Died()
 	{
 		Audio.PlayOneShot(DeadClip);
-		Controller.Move(Vector3.down * 20);
+		Eyes.transform.Translate(Vector3.down * 2);
 		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
 	}
