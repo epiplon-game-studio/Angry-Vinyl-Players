@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
-using UnityEditor;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class GameManager : MonoBehaviour
 {
-	public bool IsRunning = false;
+	bool GameStarted = false;
+	public bool IsRunning = true;
 	[HideInInspector]
 	public int score = 0;
 	
@@ -22,22 +22,58 @@ public class GameManager : MonoBehaviour
 	{
 		IsRunning = true;
 		EventManager.StartListening(EventManager.Events.SpawnVinylPlayer, SpawnVinylPlayer);
+		EventManager.StartListening(EventManager.Events.GamePause, PauseGame);
 	}
 
-	public void StartGame()
+	void Update()
 	{
-		IsRunning = true;
-		Destroy(Camera.main.gameObject);
-		MenuCanvas.gameObject.SetActive(false);
+		if (CrossPlatformInputManager.GetButtonDown("Cancel"))
+		{
+			if (IsRunning)
+			{
+				EventManager.TriggerEvent(EventManager.Events.GamePause);
+				Cursor.visible = true;
+				Cursor.lockState = CursorLockMode.None;
+			}
+		}
+	}
 
-		_playerInstance = PlayerCanvas.Player = Instantiate(Player);
-		PlayerCanvas.gameObject.SetActive(true);
-		SpawnVinylPlayer();
+	public void StartOrResumeGame()
+	{
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+
+		if (!GameStarted)
+		{
+			GameStarted = true;
+			Destroy(Camera.main.gameObject);
+
+			_playerInstance = PlayerCanvas.Player = Instantiate(Player);
+			PlayerCanvas.gameObject.SetActive(true);
+			SpawnVinylPlayer();
+		}
+		else
+		{
+			EventManager.TriggerEvent(EventManager.Events.GameResume);
+			IsRunning = true;
+		}
+	}
+
+	private void PauseGame()
+	{
+		IsRunning = false;
+		MenuCanvas.gameObject.SetActive(true);
 	}
 
 	public void ExitGame()
 	{
-		Application.Quit();
+		try
+		{
+			Application.Quit();
+		}
+		catch (System.Exception)
+		{
+		}
 	}
 
 	public void RestartGame()

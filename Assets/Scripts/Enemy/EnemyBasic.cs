@@ -8,6 +8,7 @@ public class EnemyBasic : MonoBehaviour
 	AudioSource Audio;
 	bool Happy = false;
 	NavMeshAgent agent;
+	Rigidbody body;
 	Transform Player;
 	Walk _player;
 
@@ -24,8 +25,11 @@ public class EnemyBasic : MonoBehaviour
 		HitPoints = 5;
 		Audio = GetComponent<AudioSource>();
 		agent = GetComponent<NavMeshAgent>();
+		body = GetComponent<Rigidbody>();
 
 		EventManager.StartListening(EventManager.Events.GameRestart, Kill);
+		EventManager.StartListening(EventManager.Events.GamePause, () => { agent.Stop(); body.Sleep(); });
+		EventManager.StartListening(EventManager.Events.GameResume, () => { agent.Resume(); body.WakeUp(); });
 	}
 
 	void Update()
@@ -47,7 +51,7 @@ public class EnemyBasic : MonoBehaviour
 
 	void OnCollisionEnter(Collision collision)
 	{
-		if (collision.transform.CompareTag("Projectile") && !Happy)
+		if (collision.transform.CompareTag("Projectile") && !Happy )
 		{
 			if (HitPoints > 0)
 			{

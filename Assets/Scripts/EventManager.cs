@@ -78,5 +78,7 @@ public class EventManager : MonoBehaviour
 		public static string PlayerHurt = "PLAYER_HURT";
 		public static string PlayerDied = "PLAYER_DIED";
 		public static string GameRestart = "GAME_RESTART";
+		public static string GamePause = "GAME_PAUSE";
+		public static string GameResume = "GAME_RESUME";
 	}
 }

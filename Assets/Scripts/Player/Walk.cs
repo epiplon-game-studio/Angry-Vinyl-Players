@@ -9,16 +9,13 @@ public class Walk : MonoBehaviour {
 	CharacterController Controller;
 	FirstPersonController FirstPerson;
 	Camera Eyes;
-	RaycastHit hit;
-	CursorLockMode lockMode;
-
+	bool GameRunning = true;
 	Transform DirectionSphere;
 	public bool Alive 
 	{ 
 		get { return Life > 0; }
 	}
 	public Transform vinyl;
-	//public RectTransform Hand;
 
 	public AudioSource PickupAudioSource;
 	public AudioSource HurtAudioSource;
@@ -35,19 +32,21 @@ public class Walk : MonoBehaviour {
 		Controller = GetComponent<CharacterController>();
 		FirstPerson = GetComponent<FirstPersonController>();
 		Eyes = GetComponentInChildren<Camera>() as Camera;
-		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Locked;
-
 		var list = GetComponentsInChildren<Transform>();
 		DirectionSphere = list.Single(t => t.tag.Equals("Debug"));
 		
 		Audio = GetComponent<AudioSource>();
 
 		EventManager.StartListening(EventManager.Events.PlayerDied, Died);
+		EventManager.StartListening(EventManager.Events.GamePause, () => { FirstPerson.m_CanMove = GameRunning = false;  });
+		EventManager.StartListening(EventManager.Events.GameResume, () => { FirstPerson.m_CanMove = GameRunning = true; });
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (!GameRunning)
+			return;
+
 		if (Life <= 0)
 		{
 			FirstPerson.m_CanMove = false;
