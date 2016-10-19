@@ -22,7 +22,6 @@ public class EnemyBasic : MonoBehaviour
 	{
 		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 		_player = Player.GetComponent<Walk>();
-		HitPoints = 5;
 		Audio = GetComponent<AudioSource>();
 		agent = GetComponent<NavMeshAgent>();
 		body = GetComponent<Rigidbody>();

@@ -8,6 +8,7 @@ public class Pickable : MonoBehaviour {
 	void Start()
 	{
 		EventManager.StartListening(EventManager.Events.GameRestart, () => { Destroy(gameObject); });
+		Destroy(gameObject, 10.0f);
 	}
 
 	void Update () {

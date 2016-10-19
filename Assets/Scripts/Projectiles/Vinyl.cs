@@ -27,8 +27,12 @@ public class Vinyl : MonoBehaviour
 		{
 			Destroy(gameObject);
 		}
-		meshRenderer.material = BrokenMaterial;
-		IsBroken = true;
+		else if (!collision.transform.CompareTag("Projectile"))
+		{
+			meshRenderer.material = BrokenMaterial;
+			IsBroken = true;
+			tag = "Untagged";
+		}
 	}
 	
 }

@@ -24,6 +24,7 @@ public class Walk : MonoBehaviour {
 	public float Life;
 	public int VinylBullets;
 
+	float hurtDelay = 1.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -59,6 +60,9 @@ public class Walk : MonoBehaviour {
 		{
 			Burst();
 		}
+
+		if (hurtDelay > -1)
+			hurtDelay -= Time.deltaTime;
 	}
 
 	void Fire()
@@ -106,9 +110,13 @@ public class Walk : MonoBehaviour {
 				}
 				else
 				{
-					var source = Instantiate(HurtAudioSource);
-					source.Play();
-					Destroy(source, 2);
+					if (hurtDelay <= 0)
+					{
+						var source = Instantiate(HurtAudioSource);
+						source.Play();
+						Destroy(source, 2);
+						hurtDelay = 1.0f;
+					}
 					EventManager.TriggerEvent(EventManager.Events.PlayerHurt);
 				}
 			}
