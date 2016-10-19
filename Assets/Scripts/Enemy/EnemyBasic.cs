@@ -53,7 +53,10 @@ public class EnemyBasic : MonoBehaviour
 	{
 		if (collision.transform.CompareTag("Projectile") && !Happy )
 		{
-			if (HitPoints > 0)
+			var vinyl = collision.transform.GetComponent<Vinyl>();
+			Debug.Assert(vinyl != null, "Vinyl is the only Projectile object");
+
+			if (HitPoints > 0 && !vinyl.IsBroken)
 			{
 				Audio.PlayOneShot(HitSound);
 				HitPoints--;

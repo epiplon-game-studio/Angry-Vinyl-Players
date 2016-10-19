@@ -119,7 +119,7 @@ public class Walk : MonoBehaviour {
 	private void Died()
 	{
 		Audio.PlayOneShot(DeadClip);
-		Eyes.transform.Translate(Vector3.down * 2);
+		Eyes.transform.Translate(Vector3.down * 0.5f);
 		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
 	}

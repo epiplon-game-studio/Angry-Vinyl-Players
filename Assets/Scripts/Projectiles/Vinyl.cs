@@ -4,6 +4,7 @@ using System.Collections;
 public class Vinyl : MonoBehaviour 
 {
 	float Lifespan = 5.0f;
+	[HideInInspector] public bool IsBroken = false; 
 	MeshRenderer meshRenderer;
 
 	public Material BrokenMaterial;
@@ -27,6 +28,7 @@ public class Vinyl : MonoBehaviour
 			Destroy(gameObject);
 		}
 		meshRenderer.material = BrokenMaterial;
+		IsBroken = true;
 	}
 	
 }
