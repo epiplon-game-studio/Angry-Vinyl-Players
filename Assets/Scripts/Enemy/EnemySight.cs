@@ -7,7 +7,7 @@ public class EnemySight : MonoBehaviour
 	public bool playerInSight;
 	public Vector3 personalLastSighting;
 
-	NavMeshAgent nav;
+	UnityEngine.AI.NavMeshAgent nav;
 	SphereCollider col;
 
 	// Use this for initialization

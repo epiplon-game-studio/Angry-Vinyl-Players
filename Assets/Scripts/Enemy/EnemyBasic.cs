@@ -7,7 +7,7 @@ public class EnemyBasic : MonoBehaviour
 {
 	AudioSource Audio;
 	bool Happy = false;
-	NavMeshAgent agent;
+	UnityEngine.AI.NavMeshAgent agent;
 	Rigidbody body;
 	Transform Player;
 	Walk _player;
@@ -23,7 +23,7 @@ public class EnemyBasic : MonoBehaviour
 		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 		_player = Player.GetComponent<Walk>();
 		Audio = GetComponent<AudioSource>();
-		agent = GetComponent<NavMeshAgent>();
+		agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
 		body = GetComponent<Rigidbody>();
 
 		EventManager.StartListening(EventManager.Events.GameRestart, Kill);
