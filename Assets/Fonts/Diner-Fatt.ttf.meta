@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 13d5247961edf364b8de16e5e46263cb
+timeCreated: 1489354358
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Diner-Fatt
+  fontNames:
+  - Diner-Fatt
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

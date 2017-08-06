@@ -51,8 +51,9 @@ public class GameManager : MonoBehaviour
 			_playerInstance = PlayerCanvas.Player = Instantiate(Player);
 			PlayerCanvas.gameObject.SetActive(true);
 			SpawnVinylPlayer();
-		}
-		else
+            EventManager.TriggerEvent(EventManager.Events.GameStarted);
+        }
+        else
 		{
 			EventManager.TriggerEvent(EventManager.Events.GameResume);
 			IsRunning = true;
