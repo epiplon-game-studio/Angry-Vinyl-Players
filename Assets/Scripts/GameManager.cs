@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
 	public Text Score;
 	public Canvas MenuCanvas;
 	public PlayerHUD PlayerCanvas;
+	[Space]
+	public Transform PlayerSpawnPoint;
 
 	public RespawnArea[] SpawnPoints;
 
@@ -48,7 +51,8 @@ public class GameManager : MonoBehaviour
 			GameStarted = true;
 			Destroy(Camera.main.gameObject);
 
-			_playerInstance = PlayerCanvas.Player = Instantiate(Player);
+			var player = Instantiate(Player, PlayerSpawnPoint.position, Player.transform.rotation);
+			_playerInstance = PlayerCanvas.Player = player;
 			PlayerCanvas.gameObject.SetActive(true);
 			SpawnVinylPlayer();
             EventManager.TriggerEvent(EventManager.Events.GameStarted);
@@ -92,15 +96,15 @@ public class GameManager : MonoBehaviour
 	void SpawnVinylPlayer()
 	{
 		var playerCollider = Player.GetComponent<CapsuleCollider>();
-		RespawnArea area;
-		do
-		{
-			// The enemies cannot spawn on the same area as the player
-			var i = Random.Range(0, SpawnPoints.Length);
-			area = SpawnPoints[i];
+		RespawnArea area = SpawnPoints.FirstOrDefault();
+		//do
+		//{
+		//	// The enemies cannot spawn on the same area as the player
+		//	var i = Random.Range(0, SpawnPoints.Length);
+		//	area = SpawnPoints[i];
 
-			//} while (area.Intersect(playerCollider.bounds));
-		} while (!area.IsAvailable);
+		//	//} while (area.Intersect(playerCollider.bounds));
+		//} while (!area.IsAvailable);
 
 		Instantiate(Enemy, area.RandomPosition(), Enemy.transform.rotation);
 		Instantiate(Enemy, area.RandomPosition(), Enemy.transform.rotation);

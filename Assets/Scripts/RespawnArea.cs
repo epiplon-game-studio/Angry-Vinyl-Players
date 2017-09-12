@@ -7,13 +7,10 @@ public class RespawnArea : MonoBehaviour
 	bool _available = true;
 	public bool IsAvailable { get { return _available; } } 
 	
-	void Start()
-	{
-		box = GetComponent<BoxCollider>();
-	}
-	
 	public Vector3 RandomPosition()
 	{
+		box = GetComponent<BoxCollider>();
+
 		var x_radius = box.size.x / 2;
 		var z_radius = box.size.z / 2;
 
