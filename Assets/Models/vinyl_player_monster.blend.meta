@@ -1,44 +1,52 @@
 fileFormatVersion: 2
-guid: fc9286a6aa2b45d468241fd5e04020c6
-timeCreated: 1505208971
+guid: bd8da573339a7a24380aae5b5674d398
+timeCreated: 1505216962
 licenseType: Free
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
-    100000: Box
-    100002: Cube
-    100004: Handle
-    100006: PlayerBox
-    100008: Vinyl
-    100010: Vinyl_Lid
-    100012: //RootNode
-    400000: Box
-    400002: Cube
-    400004: Handle
-    400006: PlayerBox
-    400008: Vinyl
-    400010: Vinyl_Lid
-    400012: //RootNode
+    100000: Armature
+    100002: Bone
+    100004: Bone_002
+    100006: Box
+    100008: Cube
+    100010: Handle
+    100012: PlayerBox
+    100014: Vinyl
+    100016: Vinyl_Lid
+    100018: Vinyl_Player
+    100020: //RootNode
+    400000: Armature
+    400002: Bone
+    400004: Bone_002
+    400006: Box
+    400008: Cube
+    400010: Handle
+    400012: PlayerBox
+    400014: Vinyl
+    400016: Vinyl_Lid
+    400018: Vinyl_Player
+    400020: //RootNode
     2300000: Box
     2300002: Cube
     2300004: Handle
     2300006: PlayerBox
     2300008: Vinyl
-    2300010: Vinyl_Lid
     3300000: Box
     3300002: Cube
     3300004: Handle
     3300006: PlayerBox
     3300008: Vinyl
-    3300010: Vinyl_Lid
-    4300000: Box
-    4300002: Cube
-    4300004: Handle
-    4300006: PlayerBox
-    4300008: Vinyl
-    4300010: Vinyl_Lid
+    4300000: Vinyl_Lid
+    4300002: Box
+    4300004: Cube
+    4300006: Handle
+    4300008: PlayerBox
+    4300010: Vinyl
     7400000: Default Take
+    7400002: ArmatureAction
     9500000: //RootNode
+    13700000: Vinyl_Lid
   materials:
     importMaterials: 1
     materialName: 0
@@ -62,7 +70,35 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Default Take
+      takeName: Default Take
+      firstFrame: 1
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
