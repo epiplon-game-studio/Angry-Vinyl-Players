@@ -4,6 +4,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 using UnityStandardAssets.CrossPlatformInput;
 using System;
 
+[System.Obsolete]
 public class Walk : MonoBehaviour {
 
 	FirstPersonController FirstPerson;
@@ -20,6 +21,7 @@ public class Walk : MonoBehaviour {
 	public AudioSource HurtAudioSource;
 	AudioSource Audio;
 	public AudioClip DeadClip;
+	public Animator gunAnimator;
 
 	public float Life;
 	public int VinylBullets;
@@ -72,6 +74,7 @@ public class Walk : MonoBehaviour {
 		var force = Eyes.transform.forward * 500;
 		vinylRigidbody.AddForce(force);
 		VinylBullets--;
+		gunAnimator.SetTrigger("Shoot");
 	}
 
 	void Burst()

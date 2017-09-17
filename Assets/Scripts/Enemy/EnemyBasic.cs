@@ -8,10 +8,12 @@ public class EnemyBasic : MonoBehaviour
 	AudioSource Audio;
 	bool Happy = false;
 	UnityEngine.AI.NavMeshAgent agent;
+	BoxCollider boxCollider;
 	Rigidbody body;
 	Transform Player;
 	Walk _player;
 
+	public Animator animator;
 	public Transform GoldenVinyl;
 	public AudioClip KilledSound;
 	public AudioClip HitSound;
@@ -21,10 +23,12 @@ public class EnemyBasic : MonoBehaviour
 	void Start()
 	{
 		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+		boxCollider = GetComponent<BoxCollider>();
 		_player = Player.GetComponent<Walk>();
 		Audio = GetComponent<AudioSource>();
 		agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
 		body = GetComponent<Rigidbody>();
+
 
 		EventManager.StartListening(EventManager.Events.GameRestart, Kill);
 		EventManager.StartListening(EventManager.Events.GamePause, () => { agent.Stop(); body.Sleep(); });
@@ -33,6 +37,9 @@ public class EnemyBasic : MonoBehaviour
 
 	void Update()
 	{
+		if (Happy)
+			return;
+
 		if (_player != null)
 		{
 			if (!_player.Alive)
@@ -67,7 +74,7 @@ public class EnemyBasic : MonoBehaviour
 				agent.destination = collision.transform.position;
 				var vinylPosition = new Vector3(transform.position.x, 0.8f, transform.position.z);
 				Instantiate(GoldenVinyl, vinylPosition, GoldenVinyl.rotation);
-				Destroy(gameObject);
+				Kill();
 
 				EventManager.TriggerEvent(EventManager.Events.SpawnVinylPlayer);
 			}
@@ -75,8 +82,19 @@ public class EnemyBasic : MonoBehaviour
 	}
 
 
-	private void Kill()
+	void Kill()
 	{
-		Destroy(gameObject);
+		Debug.Log("Killed");
+		animator.SetBool("IsAlive", false);
+		boxCollider.enabled = false;
+		body.velocity = Vector3.zero;
+		body.isKinematic = true;
+
+		Destroy(gameObject, 5);
+
+		if (Application.isEditor)
+		{
+			UnityEditor.Selection.activeGameObject = gameObject;
+		}
 	}
 }

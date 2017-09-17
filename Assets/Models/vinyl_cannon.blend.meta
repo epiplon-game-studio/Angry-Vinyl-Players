@@ -1,53 +1,37 @@
 fileFormatVersion: 2
-guid: bd8da573339a7a24380aae5b5674d398
-timeCreated: 1505216962
+guid: be1e2b69c9d81ba4888d58a1a7a1ea7f
+timeCreated: 1505605880
 licenseType: Free
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
-    100000: Armature
-    100002: Bone
-    100004: Bone_002
-    100006: Box
-    100008: Cube
-    100010: Handle
-    100012: PlayerBox
-    100014: Vinyl
-    100016: Vinyl_Lid
-    100018: Vinyl_Player
-    100020: //RootNode
-    400000: Armature
-    400002: Bone
-    400004: Bone_002
-    400006: Box
-    400008: Cube
-    400010: Handle
-    400012: PlayerBox
-    400014: Vinyl
-    400016: Vinyl_Lid
-    400018: Vinyl_Player
-    400020: //RootNode
-    2300000: Box
-    2300002: Cube
-    2300004: Handle
-    2300006: PlayerBox
-    2300008: Vinyl
-    3300000: Box
-    3300002: Cube
-    3300004: Handle
-    3300006: PlayerBox
-    3300008: Vinyl
-    4300000: Vinyl_Lid
-    4300002: Box
-    4300004: Cube
-    4300006: Handle
-    4300008: PlayerBox
-    4300010: Vinyl
-    7400000: Chewing
-    7400002: ArmatureAction
-    7400004: Death
+    100000: Cannon
+    100002: CannonSupport
+    100004: Hand
+    100006: Vinyl
+    100008: //RootNode
+    400000: Cannon
+    400002: CannonSupport
+    400004: Hand
+    400006: Vinyl
+    400008: //RootNode
+    2300000: Cannon
+    2300002: CannonSupport
+    2300004: Hand
+    2300006: Vinyl
+    3300000: Cannon
+    3300002: CannonSupport
+    3300004: Hand
+    3300006: Vinyl
+    4300000: Hand
+    4300002: CannonSupport
+    4300004: Vinyl
+    4300006: Cannon
+    7400000: Idle
+    7400002: Shooting
+    7400004: Grabbing
+    7400006: Gun Down
     9500000: //RootNode
-    13700000: Vinyl_Lid
   materials:
     importMaterials: 1
     materialName: 0
@@ -73,38 +57,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Chewing
+      name: Idle
       takeName: Default Take
-      firstFrame: 1
-      lastFrame: 25
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
-    - serializedVersion: 16
-      name: Death
-      takeName: Default Take
-      firstFrame: 25
-      lastFrame: 35
+      firstFrame: 14
+      lastFrame: 14
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -127,7 +83,91 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Shooting
+      takeName: Default Take
+      firstFrame: 2
+      lastFrame: 14
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Grabbing
+      takeName: Default Take
+      firstFrame: 24
+      lastFrame: 42
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Gun Down
+      takeName: Default Take
+      firstFrame: 25
+      lastFrame: 25
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 1
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []

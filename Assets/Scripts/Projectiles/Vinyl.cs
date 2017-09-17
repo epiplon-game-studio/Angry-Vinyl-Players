@@ -5,33 +5,26 @@ public class Vinyl : MonoBehaviour
 {
 	float Lifespan = 5.0f;
 	[HideInInspector] public bool IsBroken = false; 
-	MeshRenderer meshRenderer;
+	public MeshRenderer meshRenderer;
 
 	public Material BrokenMaterial;
 
 	void Start()
 	{
-		meshRenderer = GetComponent<MeshRenderer>();
+		Destroy(gameObject, Lifespan);
 	}
-
-	void Update()
-	{
-		Lifespan -= Time.deltaTime;
-		if (Lifespan < 0)
-			Destroy(gameObject);
-	}
-
+	
 	void OnCollisionEnter(Collision collision)
 	{
-		if (collision.transform.CompareTag("Enemy"))
-		{
-			Destroy(gameObject);
-		}
-		else if (!collision.transform.CompareTag("Projectile"))
+		if (!IsBroken)
 		{
 			meshRenderer.material = BrokenMaterial;
 			IsBroken = true;
-			tag = "Untagged";
+		}
+
+		if (collision.transform.CompareTag("Enemy"))
+		{
+			Destroy(gameObject);
 		}
 	}
 	
