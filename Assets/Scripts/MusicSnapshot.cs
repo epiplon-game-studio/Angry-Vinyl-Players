@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Audio;
+using vnc.Tools;
 
 public class MusicSnapshot : MonoBehaviour {
 
@@ -8,9 +9,9 @@ public class MusicSnapshot : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        EventManager.StartListening(EventManager.Events.GameStarted, GameResumed);
-        EventManager.StartListening(EventManager.Events.GamePause, GamePaused);
-        EventManager.StartListening(EventManager.Events.GameResume, GameResumed);
+        EventManager.StartListening(GameEvents.GameStarted, GameResumed);
+        EventManager.StartListening(GameEvents.GamePause, GamePaused);
+        EventManager.StartListening(GameEvents.GameResume, GameResumed);
     }
 
     private void GamePaused()

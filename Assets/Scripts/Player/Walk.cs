@@ -37,9 +37,9 @@ public class Walk : MonoBehaviour {
 		
 		Audio = GetComponent<AudioSource>();
 
-		EventManager.StartListening(EventManager.Events.PlayerDied, Died);
-		EventManager.StartListening(EventManager.Events.GamePause, () => { FirstPerson.m_CanMove = GameRunning = false;  });
-		EventManager.StartListening(EventManager.Events.GameResume, () => { FirstPerson.m_CanMove = GameRunning = true; });
+		//EventManager.StartListening(EventManager.Events.PlayerDied, Died);
+		//EventManager.StartListening(EventManager.Events.GamePause, () => { FirstPerson.m_CanMove = GameRunning = false;  });
+		//EventManager.StartListening(EventManager.Events.GameResume, () => { FirstPerson.m_CanMove = GameRunning = true; });
 	}
 	
 	// Update is called once per frame
@@ -99,33 +99,33 @@ public class Walk : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionEnter(Collision collision)
-	{
-		if (Alive)
-		{
-			if (collision.transform.CompareTag("Enemy"))
-			{
-				collision.rigidbody.AddForce(Vector3.back * 70);
-				Life--;
-				if (!Alive)
-				{
-					EventManager.TriggerEvent(EventManager.Events.PlayerDied);
-				}
-				else
-				{
-					if (hurtDelay <= 0)
-					{
-						var source = Instantiate(HurtAudioSource);
-						source.Play();
-						Destroy(source, 2);
-						hurtDelay = 1.0f;
-					}
-					EventManager.TriggerEvent(EventManager.Events.PlayerHurt);
-				}
-			}
+	//void OnCollisionEnter(Collision collision)
+	//{
+	//	if (Alive)
+	//	{
+	//		if (collision.transform.CompareTag("Enemy"))
+	//		{
+	//			collision.rigidbody.AddForce(Vector3.back * 70);
+	//			Life--;
+	//			if (!Alive)
+	//			{
+	//				EventManager.TriggerEvent(EventManager.Events.PlayerDied);
+	//			}
+	//			else
+	//			{
+	//				if (hurtDelay <= 0)
+	//				{
+	//					var source = Instantiate(HurtAudioSource);
+	//					source.Play();
+	//					Destroy(source, 2);
+	//					hurtDelay = 1.0f;
+	//				}
+	//				EventManager.TriggerEvent(EventManager.Events.PlayerHurt);
+	//			}
+	//		}
 
-		}
-	}
+	//	}
+	//}
 
 	private void Died()
 	{

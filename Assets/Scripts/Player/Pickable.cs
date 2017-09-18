@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using vnc.Tools;
 
 public class Pickable : MonoBehaviour {
 
@@ -7,7 +8,7 @@ public class Pickable : MonoBehaviour {
 
 	void Start()
 	{
-		EventManager.StartListening(EventManager.Events.GameRestart, () => { Destroy(gameObject); });
+		EventManager.StartListening(GameEvents.GameRestart, () => { Destroy(gameObject); });
 		Destroy(gameObject, 10.0f);
 	}
 

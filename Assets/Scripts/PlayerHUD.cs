@@ -2,16 +2,18 @@
 using System.Collections;
 using UnityEngine.UI;
 using System;
+using vnc.Core;
+using vnc.Tools;
 
-public class PlayerHUD : MonoBehaviour
+public class PlayerHUD : Manager<PlayerHUD>
 {
 	[HideInInspector]
-	public Walk Player;
+	public FPSPlayer Player;
+
+	public Slider EnemyHealth;
 
 	public Text BulletCounter;
 	public Text LifeCounter;
-	public Image Hand;
-	Image _handCopy;
 	public Image GameOverPanel;
 	public Image HurtDisplay;
 
@@ -19,27 +21,26 @@ public class PlayerHUD : MonoBehaviour
 
 	void Start()
 	{
-		EventManager.StartListening(EventManager.Events.GameRestart, GameRestart);
-		EventManager.StartListening(EventManager.Events.PlayerHurt, PlayerWasHit);
-		EventManager.StartListening(EventManager.Events.PlayerDied, PlayerDied);
+		EnemyHealth.maxValue = 3;
+		EnemyHealth.value = 0;
 
-		_handCopy = Instantiate(Hand);
+		//EventManager.StartListening(GameEvents.GameRestart, GameRestart);
+		//EventManager.StartListening(GameEvents.PlayerHurt, PlayerWasHit);
+		//EventManager.StartListening(GameEvents.PlayerDied, PlayerDied);
 	}
 
 	private void GameRestart()
 	{
-		Hand = Instantiate(_handCopy);
-		Hand.transform.SetParent(transform, false);
 		GameOverPanel.gameObject.SetActive(false);
 	}
 
 	void Update ()
 	{
-		BulletCounter.text = string.Format("x{0}", Player.VinylBullets);
-		LifeCounter.text = string.Format("x{0}", Player.Life);
-		HurtDisplay.color = new Color(1, 0, 0, hurtColorFade);
-		if (hurtColorFade > 0)
-			hurtColorFade -= Time.deltaTime;
+		//BulletCounter.text = string.Format("x{0}", Player.VinylBullets);
+		//LifeCounter.text = string.Format("x{0}", Player.Life);
+		//HurtDisplay.color = new Color(1, 0, 0, hurtColorFade);
+		//if (hurtColorFade > 0)
+		//	hurtColorFade -= Time.deltaTime;
 	}
 
 	void PlayerWasHit()
@@ -49,7 +50,19 @@ public class PlayerHUD : MonoBehaviour
 
 	private void PlayerDied()
 	{
-		Destroy(Hand.gameObject);
 		GameOverPanel.gameObject.SetActive(true);
+	}
+
+	public void SetEnemyHealth(EnemyBasic enemy)
+	{
+		if (enemy == null)
+		{
+			EnemyHealth.maxValue = 3;
+			EnemyHealth.value = 0;
+			return;
+		}
+
+		EnemyHealth.maxValue = enemy.TotalHitPoints;
+		EnemyHealth.value = enemy.HitPoints;
 	}
 }

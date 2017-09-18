@@ -16,15 +16,14 @@ public class Vinyl : MonoBehaviour
 	
 	void OnCollisionEnter(Collision collision)
 	{
-		if (!IsBroken)
-		{
-			meshRenderer.material = BrokenMaterial;
-			IsBroken = true;
-		}
-
 		if (collision.transform.CompareTag("Enemy"))
 		{
 			Destroy(gameObject);
+		}
+		else
+		{
+			meshRenderer.material = BrokenMaterial;
+			IsBroken = true;
 		}
 	}
 	
