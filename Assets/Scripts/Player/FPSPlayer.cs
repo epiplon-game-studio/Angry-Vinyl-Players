@@ -22,6 +22,7 @@ public class FPSPlayer : FirstPersonController
 	public float ShootingCooldown;
 	public float Life;
 	public int VinylBullets;
+	public Vector3 GunBobbingAdjustment;
 	[HideInInspector] public bool Alive { get { return Life > 0; } }
 
 	private CooldownEvent cooldown;
@@ -83,7 +84,8 @@ public class FPSPlayer : FirstPersonController
 			bobAngle += (Time.deltaTime * 200);
 			if (bobAngle >= 360) bobAngle = 0;
 
-			GunCamera.localPosition = new Vector3(bobOscillate - 1.66f, Math.Abs(bobOscillate) + 1.6f, -2.3f);
+			//GunCamera.localPosition = new Vector3(bobOscillate - 1.66f, Math.Abs(bobOscillate) + 1.6f, -2.3f);
+			GunCamera.localPosition = new Vector3(bobOscillate + GunBobbingAdjustment.x, Math.Abs(bobOscillate) + GunBobbingAdjustment.y, GunBobbingAdjustment.z);
 		}
 		else
 		{

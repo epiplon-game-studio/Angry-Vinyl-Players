@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Vinyl : MonoBehaviour 
 {
@@ -7,6 +6,7 @@ public class Vinyl : MonoBehaviour
 	[HideInInspector] public bool IsBroken = false; 
 	public MeshRenderer meshRenderer;
 	public ParticleSystem pieces;
+	public ParticleSystem trail;
 
 	public Material BrokenMaterial;
 
@@ -27,6 +27,7 @@ public class Vinyl : MonoBehaviour
 		{
 			meshRenderer.material = BrokenMaterial;
 			IsBroken = true;
+			trail.Stop();
 		}
 	}
 	
