@@ -10,23 +10,38 @@ ModelImporter:
     100004: Hand
     100006: Vinyl
     100008: //RootNode
+    100010: Pipe
+    100012: Pipe_001
+    100014: Pipe_002
     400000: Cannon
     400002: CannonSupport
     400004: Hand
     400006: Vinyl
     400008: //RootNode
+    400010: Pipe
+    400012: Pipe_001
+    400014: Pipe_002
     2300000: Cannon
     2300002: CannonSupport
     2300004: Hand
     2300006: Vinyl
+    2300008: Pipe
+    2300010: Pipe_001
+    2300012: Pipe_002
     3300000: Cannon
     3300002: CannonSupport
     3300004: Hand
     3300006: Vinyl
+    3300008: Pipe
+    3300010: Pipe_001
+    3300012: Pipe_002
     4300000: Hand
     4300002: CannonSupport
     4300004: Vinyl
     4300006: Cannon
+    4300008: Pipe_002
+    4300010: Pipe_001
+    4300012: Pipe
     7400000: Idle
     7400002: Shooting
     7400004: Grabbing

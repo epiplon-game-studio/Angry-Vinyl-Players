@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EZEffects;
+using System;
 using UniRx;
 using UnityEngine;
 using vnc.Tools.FirstPerson;
@@ -82,7 +83,7 @@ public class FPSPlayer : FirstPersonController
 			bobAngle += (Time.deltaTime * 200);
 			if (bobAngle >= 360) bobAngle = 0;
 
-			GunCamera.localPosition = new Vector3(bobOscillate - 1.66f, Math.Abs(bobOscillate), -2.3f);
+			GunCamera.localPosition = new Vector3(bobOscillate - 1.66f, Math.Abs(bobOscillate) + 1.6f, -2.3f);
 		}
 		else
 		{

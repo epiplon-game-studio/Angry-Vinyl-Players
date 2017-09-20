@@ -10,7 +10,6 @@ public class EnemyBasic : MonoBehaviour
 	Rigidbody body;
 
 	public Animator animator;
-	public Transform GoldenVinyl;
 	public AudioClip KilledSound;
 	public AudioClip HitSound;
 
@@ -55,7 +54,6 @@ public class EnemyBasic : MonoBehaviour
 					Audio.PlayOneShot(KilledSound);
 					agent.destination = collision.transform.position;
 					var vinylPosition = new Vector3(transform.position.x, 0.8f, transform.position.z);
-					Instantiate(GoldenVinyl, vinylPosition, GoldenVinyl.rotation);
 					Kill();
 
 					EventManager.TriggerEvent(GameEvents.SpawnEnemy);
@@ -74,10 +72,5 @@ public class EnemyBasic : MonoBehaviour
 		body.isKinematic = true;
 
 		Destroy(gameObject);
-
-		if (Application.isEditor)
-		{
-			UnityEditor.Selection.activeGameObject = gameObject;
-		}
 	}
 }
