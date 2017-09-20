@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 8e43e1acb55dd83428584d801be2474e
-timeCreated: 1505690525
+timeCreated: 1505879405
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,6 +8,7 @@ TextureImporter:
     21300002: retro-UI_1
     21300004: retro-UI_2
     21300006: retro-UI_3
+    21300008: retro-UI_4
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -44,7 +45,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 0
+  spriteExtrude: 1
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -142,11 +143,25 @@ TextureImporter:
         serializedVersion: 2
         x: 96
         y: 32
+        width: 31
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 7, z: 0, w: 6}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: retro-UI_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
         width: 32
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 1, y: 1, z: 1, w: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
