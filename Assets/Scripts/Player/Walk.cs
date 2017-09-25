@@ -30,7 +30,7 @@ public class Walk : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		FirstPerson = GetComponent<FirstPersonController>();
+		//FirstPerson = GetComponent<FirstPersonController>();
 		Eyes = GetComponentInChildren<Camera>() as Camera;
 		var list = GetComponentsInChildren<Transform>();
 		DirectionSphere = list.Single(t => t.tag.Equals("Debug"));
@@ -49,7 +49,7 @@ public class Walk : MonoBehaviour {
 
 		if (Life <= 0)
 		{
-			FirstPerson.m_CanMove = false;
+			//FirstPerson.m_CanMove = false;
 			return;
 		}
 

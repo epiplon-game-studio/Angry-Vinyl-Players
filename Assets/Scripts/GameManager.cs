@@ -48,7 +48,7 @@ public class GameManager : Manager<GameManager>
 	{
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
-		WorldCamera.gameObject.SetActive(false);
+		//WorldCamera.gameObject.SetActive(false);
 
 		if (!GameStarted)
 		{

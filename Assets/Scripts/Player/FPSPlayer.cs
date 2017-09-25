@@ -2,10 +2,9 @@
 using System;
 using UniRx;
 using UnityEngine;
-using vnc.Tools.FirstPerson;
 using vnc.Utilities.Time;
 
-public class FPSPlayer : FirstPersonController
+public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonController
 {
 	public static FPSPlayer Instance { get; private set; }
 
@@ -32,10 +31,10 @@ public class FPSPlayer : FirstPersonController
 	private Vector3 gunCameraStartPos;
 	private float bobAngle = 0;
 
-
 	public EnemyBasic currentEnemy = null;
 	private RaycastHit enemyHit;
 	private int enemyLayer;
+	private int waterlayer;
 
 	public override void OnStart()
 	{
@@ -46,7 +45,7 @@ public class FPSPlayer : FirstPersonController
 		gunCameraStartPos = GunCamera.localPosition;
 
 		enemyLayer = LayerMask.GetMask("Enemy");
-
+		waterlayer = 4;
 	}
 
 	public override void OnUpdate()
@@ -102,11 +101,18 @@ public class FPSPlayer : FirstPersonController
 		Gun.localEulerAngles = new Vector3(0, gunActualAngle, 0);
 	}
 
-	private void OnGUI()
+	private void OnTriggerStay(Collider other)
 	{
-		if (Debug.isDebugBuild)
-		{
-			GUI.Box(new Rect(0, 0, 200, 50), "Gun Angle: " + gunTargetAngle);
-		}
+		m_IsSwiming = other.gameObject.layer == waterlayer;
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		m_IsSwiming = other.gameObject.layer == waterlayer;
+	}
+
+	private void OnTriggerExit(Collider other)
+	{
+		m_IsSwiming = !(other.gameObject.layer == waterlayer);
 	}
 }
