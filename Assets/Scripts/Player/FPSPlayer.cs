@@ -101,6 +101,8 @@ public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonC
 		Gun.localEulerAngles = new Vector3(0, gunActualAngle, 0);
 	}
 
+
+
 	private void OnTriggerStay(Collider other)
 	{
 		m_IsSwiming = other.gameObject.layer == waterlayer;
