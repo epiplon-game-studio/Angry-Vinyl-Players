@@ -16,20 +16,28 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float smoothTime = 5f;
         public bool lockCursor = true;
 
+		[Space]
+		public bool cameraKick = true;
+		public float cameraKickOffset;
+		public float cameraKickSpeed = 10;
 
-        private Quaternion m_CharacterTargetRot;
+		private Quaternion m_CharacterTargetRot;
         private Quaternion m_CameraTargetRot;
         private bool m_cursorIsLocked = true;
+		private float kick = 0;
 
         public void Init(Transform character, Transform camera)
         {
             m_CharacterTargetRot = character.localRotation;
             m_CameraTargetRot = camera.localRotation;
-        }
+		}
 
 
         public void LookRotation(Transform character, Transform camera)
         {
+			kick -= (Time.deltaTime * cameraKickSpeed);
+			kick = Mathf.Clamp(kick, 0, cameraKickOffset);
+
             float yRot = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
             float xRot = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
 
@@ -50,7 +58,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 character.localRotation = m_CharacterTargetRot;
                 camera.localRotation = m_CameraTargetRot;
-            }
+
+				if (cameraKick)
+					camera.localRotation *= Quaternion.Euler(-kick, 0, 0);
+			}
 
             UpdateCursorLock();
         }
@@ -111,5 +122,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             return q;
         }
 
+		public void KickCamera()
+		{
+			kick = cameraKickOffset;
+		}
     }
 }

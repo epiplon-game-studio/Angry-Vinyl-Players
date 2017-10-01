@@ -11,27 +11,47 @@ ModelImporter:
     100006: Water
     100008: //RootNode
     100010: UnderwaterFloor
+    100012: Floor_1
+    100014: Sector_A
+    100016: Sector_B
+    100018: Sector_C
     400000: Gutters
     400002: Level_1
     400004: Level_2
     400006: Water
     400008: //RootNode
     400010: UnderwaterFloor
+    400012: Floor_1
+    400014: Sector_A
+    400016: Sector_B
+    400018: Sector_C
     2300000: Gutters
     2300002: Level_1
     2300004: Level_2
     2300006: Water
     2300008: UnderwaterFloor
+    2300010: Floor_1
+    2300012: Sector_A
+    2300014: Sector_B
+    2300016: Sector_C
     3300000: Gutters
     3300002: Level_1
     3300004: Level_2
     3300006: Water
     3300008: UnderwaterFloor
+    3300010: Floor_1
+    3300012: Sector_A
+    3300014: Sector_B
+    3300016: Sector_C
     4300000: Level_2
     4300002: Water
     4300004: Level_1
     4300006: Gutters
     4300008: UnderwaterFloor
+    4300010: Floor_1
+    4300012: Sector_C
+    4300014: Sector_B
+    4300016: Sector_A
     7400000: Default Take
     9500000: //RootNode
   materials:

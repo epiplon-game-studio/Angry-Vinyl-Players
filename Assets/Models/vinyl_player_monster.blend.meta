@@ -1,53 +1,49 @@
 fileFormatVersion: 2
-guid: bd8da573339a7a24380aae5b5674d398
-timeCreated: 1505216962
+guid: 43da0ce5793fc244a9b34d7f04926bc3
+timeCreated: 1506833049
 licenseType: Free
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
     100000: Armature
-    100002: Bone
-    100004: Bone_002
-    100006: Box
-    100008: Cube
-    100010: Handle
-    100012: PlayerBox
-    100014: Vinyl
-    100016: Vinyl_Lid
-    100018: Vinyl_Player
-    100020: //RootNode
+    100002: Box
+    100004: Cube
+    100006: Handle
+    100008: Lower_Bone
+    100010: PlayerBox
+    100012: Root_Bone
+    100014: Spine
+    100016: Upper_Bone
+    100018: Vinyl
+    100020: Vinyl_Lid
+    100022: //RootNode
     400000: Armature
-    400002: Bone
-    400004: Bone_002
-    400006: Box
-    400008: Cube
-    400010: Handle
-    400012: PlayerBox
-    400014: Vinyl
-    400016: Vinyl_Lid
-    400018: Vinyl_Player
-    400020: //RootNode
-    2300000: Box
-    2300002: Cube
-    2300004: Handle
-    2300006: PlayerBox
-    2300008: Vinyl
-    3300000: Box
-    3300002: Cube
-    3300004: Handle
-    3300006: PlayerBox
-    3300008: Vinyl
-    4300000: Vinyl_Lid
-    4300002: Box
-    4300004: Cube
+    400002: Box
+    400004: Cube
+    400006: Handle
+    400008: Lower_Bone
+    400010: PlayerBox
+    400012: Root_Bone
+    400014: Spine
+    400016: Upper_Bone
+    400018: Vinyl
+    400020: Vinyl_Lid
+    400022: //RootNode
+    4300000: PlayerBox
+    4300002: Cube
+    4300004: Box
     4300006: Handle
-    4300008: PlayerBox
-    4300010: Vinyl
-    7400000: Chewing
+    4300008: Vinyl
+    4300010: Vinyl_Lid
+    7400000: Default Take
     7400002: ArmatureAction
-    7400004: Death
     9500000: //RootNode
-    13700000: Vinyl_Lid
+    13700000: Box
+    13700002: Cube
+    13700004: Handle
+    13700006: PlayerBox
+    13700008: Vinyl
+    13700010: Vinyl_Lid
   materials:
     importMaterials: 1
     materialName: 0
@@ -73,10 +69,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Chewing
+      name: Default Take
       takeName: Default Take
-      firstFrame: 1
-      lastFrame: 25
+      firstFrame: -1
+      lastFrame: 10
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -84,13 +80,13 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
@@ -99,35 +95,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
-    - serializedVersion: 16
-      name: Death
-      takeName: Default Take
-      firstFrame: 25
-      lastFrame: 35
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -167,7 +135,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: 
+    rootMotionBoneName: Root_Bone
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0

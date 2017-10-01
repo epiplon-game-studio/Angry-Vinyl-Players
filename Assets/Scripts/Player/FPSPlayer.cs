@@ -4,6 +4,7 @@ using UniRx;
 using UnityEngine;
 using vnc.Utilities.Time;
 
+[Serializable]
 public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonController
 {
 	public static FPSPlayer Instance { get; private set; }
@@ -59,6 +60,8 @@ public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonC
 			var bullet = Instantiate(VinylPrefab, GunBarrel.transform.position, GunBarrel.transform.rotation);
 			bullet.AddForce(GunBarrel.forward * 15, ForceMode.Impulse);
 			Destroy(bullet.gameObject, 5);
+
+			m_MouseLook.KickCamera();
 		}
 
 		HeadBob();
@@ -100,9 +103,7 @@ public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonC
 		gunActualAngle = Mathf.LerpAngle(gunActualAngle, gunTargetAngle, 0.1f);
 		Gun.localEulerAngles = new Vector3(0, gunActualAngle, 0);
 	}
-
-
-
+	
 	private void OnTriggerStay(Collider other)
 	{
 		m_IsSwiming = other.gameObject.layer == waterlayer;

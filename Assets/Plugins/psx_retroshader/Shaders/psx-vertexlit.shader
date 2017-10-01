@@ -3,7 +3,6 @@
 Shader "psx/vertexlit" {
 	Properties{
 		_MainTex("Base (RGB)", 2D) = "white" {}
-		_Color("Main Color", Color) = (1,1,1,1)
 	}
 		SubShader{
 			Tags { "RenderType" = "Opaque" }
@@ -11,8 +10,6 @@ Shader "psx/vertexlit" {
 
 			Pass {
 			Lighting On
-			Cull Off
-
 				CGPROGRAM
 
 					#pragma vertex vert
@@ -32,6 +29,31 @@ Shader "psx/vertexlit" {
 					uniform half4 unity_FogStart;
 					uniform half4 unity_FogEnd;
 
+					float3 CustomVertexLights(float4 vertex, float3 normal, int lightCount, bool spotLight)
+					{
+						float3 viewpos = mul (UNITY_MATRIX_MV, vertex).xyz;
+						float3 viewN = normalize (mul ((float3x3)UNITY_MATRIX_IT_MV, normal));
+ 
+						float3 lightColor = UNITY_LIGHTMODEL_AMBIENT.xyz;
+						for (int i = 0; i < lightCount; i++) {
+							float3 toLight = unity_LightPosition[i].xyz - viewpos.xyz * unity_LightPosition[i].w;
+							float lengthSq = dot(toLight, toLight);
+							toLight *= rsqrt(lengthSq);
+ 
+							float atten = 1.0 / (1.0 + lengthSq * unity_LightAtten[i].z);
+							if (spotLight)
+							{
+								float rho = max (0, dot(toLight, unity_SpotDirection[i].xyz));
+								float spotAtt = (rho - unity_LightAtten[i].x) * unity_LightAtten[i].y;
+								atten *= saturate(spotAtt);
+							}
+ 
+							float diff = max (0, dot (viewN, toLight));
+							lightColor += unity_LightColor[i].rgb * (diff * atten);
+						}
+						return lightColor;
+					}
+
 					v2f vert(appdata_full v)
 					{
 						v2f o;
@@ -47,10 +69,10 @@ Shader "psx/vertexlit" {
 
 						//Vertex lighting 
 					//	o.color =  float4(ShadeVertexLights(v.vertex, v.normal), 1.0);
-						o.color = float4(ShadeVertexLightsFull(v.vertex, v.normal, 4, true), 1.0);
+						o.color = float4(CustomVertexLights(v.vertex, v.normal, 8, true), 1.0);
 						o.color *= v.color;
 
-						float distance = length(mul(UNITY_MATRIX_MV,v.vertex));
+						float distance = length(UnityObjectToViewPos(v.vertex));
 
 						//Affine Texture Mapping
 						float4 affinePos = vertex; //vertex;				
@@ -78,16 +100,16 @@ Shader "psx/vertexlit" {
 					}
 
 					sampler2D _MainTex;
-					float4 _Color;
 
 					float4 frag(v2f IN) : COLOR
 					{
 						half4 c = tex2D(_MainTex, IN.uv_MainTex / IN.normal.r)*IN.color;
 						half4 color = c*(IN.colorFog.a);
 						color.rgb += IN.colorFog.rgb*(1 - IN.colorFog.a);
-						color.rgb *= _Color.rgb;
 						return color;
 					}
+
+					
 				ENDCG
 			}
 	}
