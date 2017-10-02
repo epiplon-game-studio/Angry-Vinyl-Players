@@ -53,7 +53,7 @@ public class PlayerHUD : Manager<PlayerHUD>
 		GameOverPanel.gameObject.SetActive(true);
 	}
 
-	public void SetEnemyHealth(EnemyBasic enemy)
+	public void SetEnemyHealth(Mimic enemy)
 	{
 		if (enemy == null)
 		{

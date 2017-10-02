@@ -2,6 +2,7 @@
 using UnityEngine;
 using vnc.Tools;
 
+[System.Obsolete]
 public class EnemyBasic : MonoBehaviour 
 {
 	AudioSource Audio;

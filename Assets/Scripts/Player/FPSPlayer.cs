@@ -32,7 +32,7 @@ public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonC
 	private Vector3 gunCameraStartPos;
 	private float bobAngle = 0;
 
-	public EnemyBasic currentEnemy = null;
+	public Mimic currentEnemy = null;
 	private RaycastHit enemyHit;
 	private int enemyLayer;
 	private int waterlayer;
@@ -69,7 +69,7 @@ public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonC
 
 		if (Physics.Raycast(GunBarrel.position, GunBarrel.forward, out enemyHit, 100, enemyLayer))
 		{
-			currentEnemy = enemyHit.transform.GetComponent<EnemyBasic>();
+			currentEnemy = enemyHit.transform.GetComponent<Mimic>();
 			PlayerHUD.Singleton.SetEnemyHealth(currentEnemy);
 		}
 		else
