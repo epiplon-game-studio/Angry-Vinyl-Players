@@ -10,6 +10,7 @@ public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonC
 	public static FPSPlayer Instance { get; private set; }
 
 	[Header("Gun")]
+	public Transform Head;
 	public Transform Gun;
 	public Transform GunCamera;
 	public Animator gunAnimator;
@@ -66,6 +67,7 @@ public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonC
 
 		HeadBob();
 		SmoothRotation();
+		LeanCamera();
 
 		if (Physics.Raycast(GunBarrel.position, GunBarrel.forward, out enemyHit, 100, enemyLayer))
 		{
@@ -104,18 +106,34 @@ public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonC
 		Gun.localEulerAngles = new Vector3(0, gunActualAngle, 0);
 	}
 	
+	void LeanCamera()
+	{
+		float zRot = Input.GetAxis("Horizontal");
+		Quaternion localRot = Head.localRotation;
+		Head.localRotation = Quaternion.Euler(localRot.x, localRot.y, -zRot * 4);
+	}
+
 	private void OnTriggerStay(Collider other)
 	{
-		m_IsSwiming = other.gameObject.layer == waterlayer;
+		if (other.gameObject.layer == waterlayer)
+		{
+			m_IsSwiming = true;
+		}
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
-		m_IsSwiming = other.gameObject.layer == waterlayer;
+		if (other.gameObject.layer == waterlayer)
+		{
+			m_IsSwiming = true;
+		}
 	}
 
 	private void OnTriggerExit(Collider other)
 	{
-		m_IsSwiming = !(other.gameObject.layer == waterlayer);
+		if (other.gameObject.layer == waterlayer)
+		{
+			m_IsSwiming = false;
+		}
 	}
 }

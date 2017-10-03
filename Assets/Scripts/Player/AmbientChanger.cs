@@ -8,12 +8,17 @@ public class AmbientChanger : MonoBehaviour
 	
 	private void OnTriggerEnter(Collider other)
 	{
-		RenderSettings.ambientSkyColor = waterAmbient;
+		if (other.gameObject.layer == 4)
+		{
+			RenderSettings.ambientSkyColor = waterAmbient;
+		}
 	}
 
 	private void OnTriggerExit(Collider other)
 	{
-		RenderSettings.ambientSkyColor = normalAmbient;
-
+		if (other.gameObject.layer == 4)
+		{
+			RenderSettings.ambientSkyColor = normalAmbient;
+		}
 	}
 }
