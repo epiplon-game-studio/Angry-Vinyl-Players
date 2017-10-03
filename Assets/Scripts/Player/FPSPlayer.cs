@@ -34,8 +34,8 @@ public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonC
 	private float bobAngle = 0;
 
 	public Mimic currentEnemy = null;
+	public LayerMask enemyLayer;
 	private RaycastHit enemyHit;
-	private int enemyLayer;
 	private int waterlayer;
 
 	public override void OnStart()
@@ -46,7 +46,6 @@ public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonC
 		cooldown.Start();
 		gunCameraStartPos = GunCamera.localPosition;
 
-		enemyLayer = LayerMask.GetMask("Enemy");
 		waterlayer = 4;
 	}
 

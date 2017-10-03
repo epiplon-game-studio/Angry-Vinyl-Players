@@ -54,8 +54,6 @@ public class GameManager : Manager<GameManager>
 		{
 			GameStarted = true;
 
-			var player = Instantiate(Player, PlayerSpawnPoint.position, Player.transform.rotation);
-
 			SpawnVinylPlayer();
             EventManager.TriggerEvent(GameEvents.GameStarted);
         }

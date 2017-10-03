@@ -99,10 +99,7 @@ public class Mimic : MonoBehaviour
 
 	void OnCollisionEnter(Collision collision)
 	{
-		if (collision.transform.CompareTag("Player"))
-		{
-			isAlerted.SetValueAndForceNotify(true);
-		}
+		
 		if (collision.transform.CompareTag("Projectile"))
 		{
 			isAlerted.SetValueAndForceNotify(true);
@@ -114,6 +111,18 @@ public class Mimic : MonoBehaviour
 				{
 					Destroy(gameObject);
 				}
+			}
+		}
+	}
+
+	private void OnTriggerStay(Collider other)
+	{
+		if (other.CompareTag("Player"))
+		{
+			isAlerted.SetValueAndForceNotify(true);
+			if (m_anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+			{
+				agent.Move(-5 * transform.forward);
 			}
 		}
 	}
