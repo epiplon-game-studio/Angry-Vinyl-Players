@@ -3,7 +3,7 @@ guid: 3a7573e33bed5bf4fa4f1752ea8ae323
 timeCreated: 1506276189
 licenseType: Free
 ModelImporter:
-  serializedVersion: 21
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: Gutters
     100002: Level_1
@@ -15,6 +15,9 @@ ModelImporter:
     100014: Sector_A
     100016: Sector_B
     100018: Sector_C
+    100020: Crack
+    100022: Pipe
+    100024: Level
     400000: Gutters
     400002: Level_1
     400004: Level_2
@@ -25,6 +28,9 @@ ModelImporter:
     400014: Sector_A
     400016: Sector_B
     400018: Sector_C
+    400020: Crack
+    400022: Pipe
+    400024: Level
     2300000: Gutters
     2300002: Level_1
     2300004: Level_2
@@ -34,6 +40,9 @@ ModelImporter:
     2300012: Sector_A
     2300014: Sector_B
     2300016: Sector_C
+    2300018: Crack
+    2300020: Pipe
+    2300022: Level
     3300000: Gutters
     3300002: Level_1
     3300004: Level_2
@@ -43,6 +52,9 @@ ModelImporter:
     3300012: Sector_A
     3300014: Sector_B
     3300016: Sector_C
+    3300018: Crack
+    3300020: Pipe
+    3300022: Level
     4300000: Level_2
     4300002: Water
     4300004: Level_1
@@ -52,12 +64,32 @@ ModelImporter:
     4300012: Sector_C
     4300014: Sector_B
     4300016: Sector_A
+    4300018: Crack
+    4300020: Pipe
+    4300022: Level
     7400000: Default Take
     9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Water
+    second: {fileID: 2100000, guid: ab2ac3f160a056c49aedf8972b8c50a1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: World
+    second: {fileID: 2100000, guid: f6f8a18539f0f544c8a9d76926791c92, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: World__map-tiles_png
+    second: {fileID: 2100000, guid: bed677828ad904642a462686375a92ea, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -70,6 +102,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5

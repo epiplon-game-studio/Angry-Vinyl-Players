@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 79576a2c1684e464f8a5ec5c903f2040
+timeCreated: 1507059794
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Moinho
+  fontNames:
+  - Moinho
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -9,7 +9,7 @@ public class Mimic : MonoBehaviour
 {
 	public static FPSPlayer Player;
 
-	public LayerMask playerLayer;
+	public LayerMask hitscan;
 	public NavMeshAgent agent;
 	public Animator m_anim;
 
@@ -77,7 +77,7 @@ public class Mimic : MonoBehaviour
 		foreach (var angle in SIGHT_ANGLES)
 		{
 			sightDirection = Quaternion.Euler(0, angle, 0) * transform.forward;
-			if (Physics.Raycast(transform.position, sightDirection, out hit, rayDistance, playerLayer))
+			if (Physics.Raycast(transform.position, sightDirection, out hit, rayDistance, hitscan))
 			{
 				isAlerted.SetValueAndForceNotify(true);
 				m_anim.SetTrigger("Attack");
@@ -99,7 +99,6 @@ public class Mimic : MonoBehaviour
 
 	void OnCollisionEnter(Collision collision)
 	{
-		
 		if (collision.transform.CompareTag("Projectile"))
 		{
 			isAlerted.SetValueAndForceNotify(true);
