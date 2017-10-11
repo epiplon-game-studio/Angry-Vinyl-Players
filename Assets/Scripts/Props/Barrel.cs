@@ -37,20 +37,20 @@ public class Barrel : MonoBehaviour
 			if (hit.collider.gameObject == gameObject)
 			{
 				Debug.Log(name + " hit itself!");
-				yield return null;
+				break;
 			}
 
-			var barrel = hit.transform.GetComponent<Barrel>();
+			var barrel = hit.collider.gameObject.GetComponent<Barrel>();
 			if (barrel != null)
 			{
 				Debug.Log(string.Format("{0} exploded {1}", name, barrel.gameObject.name));
 				barrel.Explode();
 			}
 
-			var destructible = hit.transform.GetComponent<DestructibleConcrete>();
+			var destructible = hit.transform.parent.GetComponent<Destructible>();
 			if (destructible != null)
 			{
-				destructible.OnDestructibleDestroy();
+				destructible.OnDestruct();
 			}
 		}
 		Destroy(gameObject);

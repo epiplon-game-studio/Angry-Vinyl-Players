@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class DestructibleConcrete : MonoBehaviour
+public class DestructibleConcrete : Destructible
 {
 	public ParticleSystem particles;
 
@@ -14,7 +14,7 @@ public class DestructibleConcrete : MonoBehaviour
 		m_Collider = GetComponent<MeshCollider>();
 	}
 
-	public void OnDestructibleDestroy()
+	public override void OnDestruct()
 	{
 		if (!isDestroyed)
 		{
