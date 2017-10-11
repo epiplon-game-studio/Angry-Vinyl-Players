@@ -5,20 +5,20 @@ public class AmbientChanger : MonoBehaviour
 	[Header("Ambient")]
 	public Color normalAmbient;
 	public Color waterAmbient;
-	
-	private void OnTriggerEnter(Collider other)
+	[Space]
+	public FPSPlayer player;
+
+	private void Update()
 	{
-		if (other.gameObject.layer == 4)
+		if (player.IsUnderwater())
 		{
 			RenderSettings.ambientSkyColor = waterAmbient;
+			RenderSettings.fog = true;
 		}
-	}
-
-	private void OnTriggerExit(Collider other)
-	{
-		if (other.gameObject.layer == 4)
+		else
 		{
 			RenderSettings.ambientSkyColor = normalAmbient;
+			RenderSettings.fog = false;
 		}
 	}
 }

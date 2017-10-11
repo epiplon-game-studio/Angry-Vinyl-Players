@@ -2,6 +2,7 @@
 using System;
 using UniRx;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 using vnc.Utilities.Time;
 
 [Serializable]
@@ -36,7 +37,14 @@ public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonC
 	public Mimic currentEnemy = null;
 	public LayerMask enemyLayer;
 	private RaycastHit enemyHit;
+
+	[Header("Water System")]
+	public float m_SwimSpeed;
+	public float aboveWaterTolerance;
 	private int waterlayer;
+	private bool m_SwimInput;
+	private bool m_DiveInput;
+	private float _waterSurfacePosY;
 
 	public override void OnStart()
 	{
@@ -79,9 +87,41 @@ public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonC
 		}
 	}
 
+	public override void OnSwim()
+	{
+		RotateView();
+		m_SwimInput = CrossPlatformInputManager.GetButton("Jump");
+		m_DiveInput = CrossPlatformInputManager.GetButton("Dive");
+
+		float speed;
+		GetInput(out speed);
+		// always move along the camera forward as it is the direction that it being aimed at
+		Vector3 desiredMove = m_Camera.transform.forward * m_Input.y + transform.right * m_Input.x;
+		m_MoveDir = desiredMove * speed;
+		m_MoveDir.y = 0;
+		
+		if (m_SwimInput && m_Camera.transform.position.y < _waterSurfacePosY + aboveWaterTolerance)
+		{
+			m_MoveDir.y = m_SwimSpeed;
+		}
+		else if (m_DiveInput)
+		{
+			m_MoveDir.y = -m_SwimSpeed;
+		}
+
+		m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.deltaTime;
+		m_CollisionFlags = cController.Move(m_MoveDir * Time.deltaTime);
+		ProgressStepCycle(speed);
+		UpdateCameraPosition(speed);
+
+		m_MouseLook.UpdateCursorLock();
+
+		OnUpdate();
+	}
+
 	private void HeadBob()
 	{
-		if (cController.velocity.magnitude > 0)
+		if (cController.velocity.magnitude > 0 && !m_IsSwiming)
 		{
 			float bobOscillate = Mathf.Sin(bobAngle * Mathf.Deg2Rad) /2 ;
 			bobAngle += (Time.deltaTime * 200);
@@ -112,18 +152,16 @@ public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonC
 		Head.localRotation = Quaternion.Euler(localRot.x, localRot.y, -zRot * 4);
 	}
 
-	private void OnTriggerStay(Collider other)
+	public bool IsUnderwater()
 	{
-		if (other.gameObject.layer == waterlayer)
-		{
-			m_IsSwiming = true;
-		}
+		return m_Camera.gameObject.transform.position.y < (_waterSurfacePosY);
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.layer == waterlayer)
 		{
+			_waterSurfacePosY = other.transform.position.y;
 			m_IsSwiming = true;
 		}
 	}
@@ -132,7 +170,13 @@ public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonC
 	{
 		if (other.gameObject.layer == waterlayer)
 		{
-			m_IsSwiming = false;
+			_waterSurfacePosY = other.transform.position.y;
+			float fpsPosY = this.transform.position.y;
+			if (fpsPosY > _waterSurfacePosY)
+			{
+				// ok we really left the water
+				m_IsSwiming = false;
+			}
 		}
 	}
 }

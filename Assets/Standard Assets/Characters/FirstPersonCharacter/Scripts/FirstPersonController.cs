@@ -10,17 +10,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
 	[RequireComponent(typeof(AudioSource))]
 	public class FirstPersonController : MonoBehaviour
 	{
+		[SerializeField] private bool m_AlwaysRun;
 		[SerializeField] private bool m_IsWalking;
-		[SerializeField] public bool m_IsSwiming;
-		[Space]
-		[SerializeField]
-		private bool m_AlwaysRun;
 		[SerializeField] private float m_WalkSpeed;
 		[SerializeField] private float m_RunSpeed;
 		[SerializeField] [Range(0f, 1f)] private float m_RunstepLenghten;
 		[SerializeField] private float m_JumpSpeed;
 		[SerializeField] private float m_StickToGroundForce;
-		[SerializeField] private float m_GravityMultiplier;
+		[SerializeField] protected float m_GravityMultiplier;
 		[SerializeField] public MouseLook m_MouseLook;
 		[SerializeField] private bool m_UseFovKick;
 		[SerializeField] private FOVKick m_FovKick = new FOVKick();
@@ -31,15 +28,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		[SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
 		[SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
 		[SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
+		[Space]
+		[SerializeField] public bool m_IsSwiming;
 
 		public Camera m_Camera;
 		private bool m_Jump;
-		private bool m_Swim;
 		private float m_YRotation;
-		private Vector2 m_Input;
-		private Vector3 m_MoveDir = Vector3.zero;
+		protected Vector2 m_Input;
+		protected Vector3 m_MoveDir = Vector3.zero;
 		private CharacterController m_CharacterController;
-		private CollisionFlags m_CollisionFlags;
+		protected CollisionFlags m_CollisionFlags;
 		private bool m_PreviouslyGrounded;
 		private Vector3 m_OriginalCameraPosition;
 		private float m_StepCycle;
@@ -71,7 +69,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		{
 			if (m_IsSwiming)
 			{
-				Swim();
+				OnSwim();
 				return;
 			}
 
@@ -136,32 +134,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			OnUpdate();
 		}
 
-		private void Swim()
-		{
-			RotateView();
-			m_Swim = CrossPlatformInputManager.GetButton("Jump");
-
-			float speed;
-			GetInput(out speed);
-			// always move along the camera forward as it is the direction that it being aimed at
-			Vector3 desiredMove = m_Camera.transform.forward * m_Input.y + transform.right * m_Input.x;
-			m_MoveDir = desiredMove * speed;
-
-			if (m_Swim)
-				m_MoveDir.y = (m_JumpSpeed/3);
-
-			m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.deltaTime;
-			m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.deltaTime);
-			ProgressStepCycle(speed);
-			UpdateCameraPosition(speed);
-
-			m_MouseLook.UpdateCursorLock();
-
-			OnUpdate();
-
-		}
-
-
 		private void PlayLandingSound()
 		{
 			m_AudioSource.clip = m_LandSound;
@@ -176,7 +148,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		}
 
 
-		private void ProgressStepCycle(float speed)
+		protected void ProgressStepCycle(float speed)
 		{
 			if (m_CharacterController.velocity.sqrMagnitude > 0 && (m_Input.x != 0 || m_Input.y != 0))
 			{
@@ -214,7 +186,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		}
 
 
-		private void UpdateCameraPosition(float speed)
+		protected void UpdateCameraPosition(float speed)
 		{
 			Vector3 newCameraPosition;
 			if (!m_UseHeadBob)
@@ -238,7 +210,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		}
 
 
-		private void GetInput(out float speed)
+		protected void GetInput(out float speed)
 		{
 			// Read input
 			float horizontal = Input.GetAxis("Horizontal");
@@ -279,11 +251,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		}
 
 
-		private void RotateView()
+		protected void RotateView()
 		{
 			m_MouseLook.LookRotation(transform, m_Camera.transform);
 		}
-
 
 		private void OnControllerColliderHit(ControllerColliderHit hit)
 		{
@@ -303,6 +274,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		public virtual void OnStart() { }
 		public virtual void OnUpdate() { }
+		public virtual void OnSwim() { }
 
 		private void OnGUI()
 		{
