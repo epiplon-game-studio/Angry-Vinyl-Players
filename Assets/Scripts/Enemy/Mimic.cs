@@ -79,9 +79,12 @@ public class Mimic : MonoBehaviour
 			sightDirection = Quaternion.Euler(0, angle, 0) * transform.forward;
 			if (Physics.Raycast(transform.position, sightDirection, out hit, rayDistance, hitscan))
 			{
-				isAlerted.SetValueAndForceNotify(true);
-				m_anim.SetTrigger("Attack");
-				break;
+				if (hit.collider.CompareTag("Player"))
+				{
+					isAlerted.SetValueAndForceNotify(true);
+					m_anim.SetTrigger("Attack");
+					break;
+				}
 			}
 		}
 
