@@ -99,7 +99,7 @@ public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonC
 		Vector3 desiredMove = m_Camera.transform.forward * m_Input.y + transform.right * m_Input.x;
 		m_MoveDir = desiredMove * speed;
 		m_MoveDir.y = 0;
-		
+
 		if (m_SwimInput && m_Camera.transform.position.y < _waterSurfacePosY + aboveWaterTolerance)
 		{
 			m_MoveDir.y = m_SwimSpeed;
@@ -123,7 +123,7 @@ public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonC
 	{
 		if (cController.velocity.magnitude > 0 && !m_IsSwiming)
 		{
-			float bobOscillate = Mathf.Sin(bobAngle * Mathf.Deg2Rad) /2 ;
+			float bobOscillate = Mathf.Sin(bobAngle * Mathf.Deg2Rad) / 2;
 			bobAngle += (Time.deltaTime * 200);
 			if (bobAngle >= 360) bobAngle = 0;
 
@@ -144,7 +144,7 @@ public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonC
 		gunActualAngle = Mathf.LerpAngle(gunActualAngle, gunTargetAngle, 0.1f);
 		Gun.localEulerAngles = new Vector3(0, gunActualAngle, 0);
 	}
-	
+
 	void LeanCamera()
 	{
 		float zRot = Input.GetAxis("Horizontal");
@@ -161,8 +161,19 @@ public class FPSPlayer : UnityStandardAssets.Characters.FirstPerson.FirstPersonC
 	{
 		if (other.gameObject.layer == waterlayer)
 		{
-			_waterSurfacePosY = other.transform.position.y;
+			if(!m_IsSwiming)
+			{
+				cController.Move(3 * Physics.gravity * Time.deltaTime);
+			}
+
 			m_IsSwiming = true;
+			_waterSurfacePosY = other.transform.position.y;
+			//if (transform.position.y + aboveWaterTolerance > _waterSurfacePosY)
+			//{
+			//	Debug.Log("Pull down");
+			//}
+			//cController.Move(cController.velocity.y * Time.deltaTime);
+			//Debug.Log("Fall velocity: " + cController.velocity.y);
 		}
 	}
 

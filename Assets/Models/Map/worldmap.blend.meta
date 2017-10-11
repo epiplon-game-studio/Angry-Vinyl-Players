@@ -18,6 +18,8 @@ ModelImporter:
     100020: Crack
     100022: Pipe
     100024: Level
+    100026: Breakable_Column
+    100028: SmallWallCrack
     400000: Gutters
     400002: Level_1
     400004: Level_2
@@ -31,6 +33,8 @@ ModelImporter:
     400020: Crack
     400022: Pipe
     400024: Level
+    400026: Breakable_Column
+    400028: SmallWallCrack
     2300000: Gutters
     2300002: Level_1
     2300004: Level_2
@@ -43,6 +47,8 @@ ModelImporter:
     2300018: Crack
     2300020: Pipe
     2300022: Level
+    2300024: Breakable_Column
+    2300026: SmallWallCrack
     3300000: Gutters
     3300002: Level_1
     3300004: Level_2
@@ -55,6 +61,8 @@ ModelImporter:
     3300018: Crack
     3300020: Pipe
     3300022: Level
+    3300024: Breakable_Column
+    3300026: SmallWallCrack
     4300000: Level_2
     4300002: Water
     4300004: Level_1
@@ -67,6 +75,8 @@ ModelImporter:
     4300018: Crack
     4300020: Pipe
     4300022: Level
+    4300024: SmallWallCrack
+    4300026: Breakable_Column
     7400000: Default Take
     9500000: //RootNode
   externalObjects:
@@ -84,7 +94,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: World__map-tiles_png
-    second: {fileID: 2100000, guid: bed677828ad904642a462686375a92ea, type: 2}
+    second: {fileID: 2100000, guid: 50359ba00782a8e42aa2138ebdb9dc0e, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
